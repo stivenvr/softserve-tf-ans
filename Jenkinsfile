@@ -4,6 +4,7 @@ pipeline {
     stages {
         stage('Terraform apply'){
             steps{
+                sh 'terraform -chdir="Terraform/" init'
                 sh 'terraform -chdir="Terraform/" apply -auto-approve'
             }
         }
