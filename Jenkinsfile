@@ -1,10 +1,13 @@
 pipeline {
     agent any
-
+    environment{
+        AWS_ACCESS_KEY = credentials('AWS_ACCESS_KEY')
+        AWS_SECRET_KEY = credentials('AWS_SECRET_KEY')
+    }
     stages {
         stage ("terraform init") {
             steps {
-                sh ('terraform -chdir="Terraform/" init -reconfigure') 
+                sh ('terraform -chdir="Terraform/" init') 
             }
         }
         stage ("terraform plan") {
