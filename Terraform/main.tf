@@ -133,7 +133,7 @@ resource "tls_private_key" "rsa" {
   rsa_bits  = 4096
 }
 
-resource "local_file" "foo" {
+resource "local_file" "tfkey" {
   content  = tls_private_key.rsa.private_key_pem
   filename = "tfkey"
 }

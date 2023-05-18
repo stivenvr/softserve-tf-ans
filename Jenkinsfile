@@ -2,16 +2,22 @@ pipeline {
     agent any
 
     stages {
-        stage('Terraform apply'){
-            steps{
-                sh 'terraform -chdir="Terraform/" init'
-                sh 'terraform -chdir="Terraform/" apply -auto-approve'
+        stage ("terraform init") {
+            steps {
+                sh ('terraform -chdir="Terraform/" init -reconfigure') 
             }
         }
-        stage('Ansible exec'){
-            steps{
-                sh 'ansible-playbook -i Ansible/hosts.txt Ansible/playbook_docker.yml'
+        stage ("terraform plan") {
+            steps {
+                sh ('terraform -chdir="Terraform/" plan') 
             }
+        }
+                
+        stage ("terraform Action") {
+            steps {
+                echo "Terraform action is --> ${action}"
+                sh ('terraform ${action} --auto-approve') 
+           }
         }
     }
 }
