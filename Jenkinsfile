@@ -4,7 +4,7 @@ pipeline {
     stages {
         stage('Terraform apply'){
             steps{
-                sh 'terreform -chdir="Terraform/" apply -auto-approve'
+                sh 'terraform -chdir="Terraform/" apply -auto-approve'
             }
         }
         stage('Ansible exec'){
