@@ -19,7 +19,7 @@ pipeline {
         stage ("terraform Action") {
             steps {
                 echo "Terraform action is --> ${action}"
-                sh ('terraform -chdir="Terraform/" ${action} --auto-approve') 
+                sh ('terraform -chdir="Terraform/" ${action} -auto-approve') 
            }
         }
     }
