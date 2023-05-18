@@ -1,8 +1,7 @@
 provider "aws" {
   #region is using variables.tf file
   region = var.region
-  access_key = "AKIAZZ5BDHZTV4GW2TXC"
-  secret_key = "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" 
+  profile = "tf_admin"
 }
 
 
