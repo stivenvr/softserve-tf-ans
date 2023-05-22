@@ -25,3 +25,7 @@ output "public_subnet_AZ" {
 output "ec2_region" {
   value = data.aws_region.current.name
 }
+
+output "ec2_dns" {
+  value = aws_instance.ubuntu_tf.public_dns
+}

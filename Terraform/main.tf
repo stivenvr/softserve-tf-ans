@@ -11,6 +11,7 @@ data "aws_region" "current" {}
 resource "aws_vpc" "main" {
   cidr_block       = var.cidr
   instance_tenancy = "default"
+  enable_dns_hostnames = true
   
   tags = {
     Name = "${var.environment}-vpc"
@@ -65,6 +66,12 @@ resource "aws_route_table_association" "public" {
   depends_on = [aws_subnet.public, aws_route_table.public]
 }
 
+# resource "aws_subnet" "private" {
+#   vpc_id                  = aws_vpc.main.id
+#   cidr_block              = var.private_cidr
+#   map_public_ip_on_launch = false
+#   availability_zone       = var.availability_zone
+# }
 
 resource "aws_instance" "ubuntu_tf" {
 
@@ -90,7 +97,7 @@ resource "aws_instance" "ubuntu_tf" {
   }
 
   provisioner "local-exec" {
-    command = "echo ${aws_instance.ubuntu_tf.public_ip} > ../Ansible/hosts.txt"
+    command = "echo ${aws_instance.ubuntu_tf.public_dns} > ../Ansible/hosts.txt"
   }  
 }
 
